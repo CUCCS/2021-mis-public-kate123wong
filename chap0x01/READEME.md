@@ -12,19 +12,19 @@ typora-root-url: ./
 
 + 设置AP的管理员用户名和密码
 
-  ![image-20210325102218309](/images/image-20210325102218309.png)
+  ![image-20210325102218309](images/image-20210325102218309.png)
 
 + 设置SSID广播和非广播模式
 
   勾选详情配置中的`Hide ESSID`为非广播模式，不勾选为广播模式。
 
-  <img src="/images/image-20210325095215453.png" alt="image-20210325095215453" style="zoom: 67%;" />
+  <img src="images/image-20210325095215453.png" alt="image-20210325095215453" style="zoom: 67%;" />
 
 + 配置不同的加密方式
 
   + `WEP Shared Auth (WEP-40)`
 
-  <img src="/images/image-20210325102743889.png" alt="image-20210325102743889" style="zoom:50%;" />
+  <img src="images/image-20210325102743889.png" alt="image-20210325102743889" style="zoom:50%;" />
 
 + 设置AP管理密码
 
@@ -52,7 +52,7 @@ typora-root-url: ./
 
   非广播模式下手机看不到名为`OpenWrtKate`的热点。
 
-  ![image-20210325101545420](/images/image-20210325101545420.png)
+  ![image-20210325101545420](images/image-20210325101545420.png)
 
   
 
@@ -60,7 +60,7 @@ typora-root-url: ./
 
   WEP: 需要输入密码，无法直接连接。
 
-  <img src="/images/image-20210325103514385.png" alt="image-20210325103514385" style="zoom:25%;" />
+  <img src="images/image-20210325103514385.png" alt="image-20210325103514385" style="zoom:25%;" />
 
 + 设置AP管理密码
 
@@ -246,31 +246,31 @@ fi
 
 + 在`https://downloads.openwrt.org/releases/19.07.5/targets/x86/64/`中下载`openwrt-19.07.5-x86-64-combined-squashfs.img.gz`。
 
-  ![image-20210323215045662](/images/image-20210323215045662.png)
+  ![image-20210323215045662](images/image-20210323215045662.png)
 
 + 使用`gzip -d`在`git bash`中解压缩刚下载的文件。
 
-  ![image-20210323215407402](/images/image-20210323215407402.png)
+  ![image-20210323215407402](images/image-20210323215407402.png)
 
 + 使用下述命令将`img`文件转换成`vdi`文件。
 
-  ![image-20210323220936084](/images/image-20210323220936084.png)
+  ![image-20210323220936084](images/image-20210323220936084.png)
 
 + 磁盘扩容
 
-  ![image-20210324111902165](/images/image-20210324111902165.png)
+  ![image-20210324111902165](images/image-20210324111902165.png)
 
-  ![image-20210324103534975](/images/image-20210324103534975.png)
+  ![image-20210324103534975](images/image-20210324103534975.png)
 
 + 在`virtualBox`中新建虚拟机，并选择[使用已有虚拟硬盘]，并注册刚才生成的`vdi`。得到新的虚拟机`openwrt-demo`。
 
-  ​	![image-20210323213427585](/images/image-20210323213427585.png)
+  ​	![image-20210323213427585](images/image-20210323213427585.png)
 
-  ​	<img src="/images/image-20210323221321697.png" alt="image-20210323221321697" style="zoom: 80%;" />
+  ​	<img src="images/image-20210323221321697.png" alt="image-20210323221321697" style="zoom: 80%;" />
 
 + 进行一些配置，如：设置多重加载、NAT+Host only双网卡、修改内存大小、显存大小、USB设备配置等。
 
-  ![image-20210324162156969](/images/image-20210324162156969.png)
+  ![image-20210324162156969](images/image-20210324162156969.png)
 
 ### 无线网卡配置(补充)
 
@@ -278,21 +278,21 @@ fi
 
 + `usb`端口设置：
 
-  ![image-20210324082029471](/images/image-20210324082029471.png)
+  ![image-20210324082029471](images/image-20210324082029471.png)
 
 注意：重装virtualbox 需要安装 extension pack，才能更改上面的USB控制器。
 
 + 可以采用下面的三条指令检测虚拟机是否可以正常的识别网卡。
 
-  ![image-20210324090521460](/images/image-20210324090521460.png)
+  ![image-20210324090521460](images/image-20210324090521460.png)
 
 + 使用`sudo airodump-ng wlan0 -c 11 -w demo-20210324 --beacons` ： 抓包。
 
-  ![image-20210324090625388](/images/image-20210324090625388.png)
+  ![image-20210324090625388](images/image-20210324090625388.png)
 
 + 使用`vscode`的`downlode`功能将上述抓取的数据包下载到本地。(也可以使用windows自带的`scp`命令),方便在主机上使用`wireshark`进行分析。
 
-  ![image-20210324100804642](/images/image-20210324100804642.png)
+  ![image-20210324100804642](images/image-20210324100804642.png)
 
 ###  `OpenWrt`配置
 
@@ -356,7 +356,7 @@ fi
 
 + 安装完`LuCi`后浏览器访问的结果
 
-  ![image-20210324165555052](/images/image-20210324165555052.png)
+  ![image-20210324165555052](images/image-20210324165555052.png)
 
 + 检测网卡驱动
 
@@ -391,9 +391,9 @@ fi
 
   安装驱动前：
 
-  ​	![image-20210324212709869](/images/image-20210324212709869.png)
+  ​	![image-20210324212709869](images/image-20210324212709869.png)
 
-  ​	安装驱动后：![image-20210324212721142](/images/image-20210324212721142.png)
+  ​	安装驱动后：![image-20210324212721142](images/image-20210324212721142.png)
 
 + 安装`wpa-supplicant` 和 `hostapd`。
 
@@ -404,19 +404,19 @@ fi
 
 + 重启系统，使得上述安装的配置生效。以便能够在`LuCi` 的网页版中管理无线网卡设置。能在网页版的`Network`下拉菜单中看见`Wireless`为上述操作成功的标识。
 
-  ![image-20210324213158133](/images/image-20210324213158133.png)
+  ![image-20210324213158133](images/image-20210324213158133.png)
 
 + 进行下述的配置
 
-  <img src="/images/image-20210325092932526.png" alt="image-20210325092932526" style="zoom:80%;" />
+  <img src="images/image-20210325092932526.png" alt="image-20210325092932526" style="zoom:80%;" />
 
 + `Enable`
 
-  ![image-20210325093855745](/images/image-20210325093855745.png)
+  ![image-20210325093855745](images/image-20210325093855745.png)
 
 + 手机连接之后
 
-  ![image-20210325094239229](/images/Inkedimage-2021032509423922.jpg)
+  ![image-20210325094239229](images/Inkedimage-2021032509423922.jpg)
 
 ## 参考资料
 
