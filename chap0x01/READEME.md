@@ -12,7 +12,7 @@ typora-root-url: ./
 
 + 设置AP的管理员用户名和密码
 
-  ![image-20210325102218309](images/image-20210325102218309.png)
+  
 
 + 设置SSID广播和非广播模式
 
@@ -22,17 +22,37 @@ typora-root-url: ./
 
 + 配置不同的加密方式
 
+  ![image-20210325112930051](images/image-20210325112930051.png)
+
+  例如：
+
   + `WEP Shared Auth (WEP-40)`
 
   <img src="images/image-20210325102743889.png" alt="image-20210325102743889" style="zoom:50%;" />
 
+  + WPA2 PSK (CCMP)
+
+    <img src="images/image-20210325112825596.png" alt="image-20210325112825596" style="zoom:67%;" />
+
+    <img src="images/image-20210325112737047.png" alt="image-20210325112737047" style="zoom:67%;" />
+
+  + ……
+
 + 设置AP管理密码
+
+  ![image-20210325102218309](images/image-20210325102218309.png)
 
 + 配置无线路由器使用自定义的DNS解析服务器
 
+  ![image-20210325162755710](images/image-20210325162755710.png)
+
 + 配置DHCP和禁用DHCP
 
+  
+
 + 开启路由器/AP的日志记录功能（对指定事件记录）
+
+  
 
 + 配置AP隔离(WLAN划分)功能
 
@@ -46,7 +66,13 @@ typora-root-url: ./
 
 + 重置和恢复AP到出厂默认设置状态
 
+  
+
 + 设置AP的管理员用户名和密码
+
+
+
+
 
 + 设置SSID广播和非广播模式
 
@@ -58,11 +84,9 @@ typora-root-url: ./
 
 + 配置不同的加密方式
 
-  WEP: 需要输入密码，无法直接连接。
+  无密码时，可直接连接，当配置了加密时，客户端需要输入密码才可以加入热点。手机端可以查看当前所用的加密方式。并给出不安全、低安全性等不同的安全提醒。
 
-  <img src="images/image-20210325103514385.png" alt="image-20210325103514385" style="zoom:25%;" />
-
-+ 设置AP管理密码
+  ![image-20210325114649908](images/image-20210325114649908.png)
 
 + 配置无线路由器使用自定义的DNS解析服务器
 
@@ -74,17 +98,11 @@ typora-root-url: ./
 
 + 设置MAC地址过滤规则（ACL地址过滤器）
 
-+ 查看WPS功能的支持情况
-
-+ 查看AP/无线路由器支持哪些工作模式
-
 + 如果手机无法分配到IP地址但又想联网该如何解决？
 
 ## 使用路由器/AP的配置导出备份功能，尝试解码导出的配置文件
 
-下图以TP-LINK TL-WR720N为例：
-
-![img](https://c4pr1c3.github.io/cuc-mis/chap0x01/attach/chap0x01/tp-link%20tl-wr720n%20backup%20and%20restore.png)
+![img](images/XAUKRHXYAI_Q2JAJAV]_RL.png)
 
 
 
@@ -303,7 +321,7 @@ fi
       option type 'bridge'
       option ifname 'eth0'
       option proto 'static'
-      option ipaddr '192.168.56.11' 
+      option ipaddr '192.168.152.101' 
       option netmask '255.255.255.0'
       option ip6assign '60'
   ```
@@ -356,7 +374,7 @@ fi
 
 + 安装完`LuCi`后浏览器访问的结果
 
-  ![image-20210324165555052](images/image-20210324165555052.png)
+  ![image-20210325111045337](/images/image-20210325111045337.png)
 
 + 检测网卡驱动
 
@@ -417,6 +435,18 @@ fi
 + 手机连接之后
 
   ![image-20210325094239229](images/Inkedimage-2021032509423922.jpg)
+
++ 补充：
+
+  + 备份`OpenWrt`的配置、恢复备份、恢复默认配置。
+
+    ![image-20210326112838209](images/image-20210326112838209.png)
+
+  + 重置路由配置：重置`	OpenWrt`的配置，包括其公私钥、ip配置、root的密码(清空)，都会重置。
+
+    ![image-20210326105429690](images/image-20210326105429690.png)
+
+  + 
 
 ## 参考资料
 
