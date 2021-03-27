@@ -1,36 +1,21 @@
----
-typora-root-url: ./
----
+# 第一章实验报告
 
-+ ./backup-OpenWrt-2021-03-26.tar.gz)
+## 实验目的
 
-## 复习VirtualBox的配置与使用
++ 熟悉基于 OpenWrt 的无线接入点（AP）配置
++ 为第二章、第三章和第四章实验准备好「无线软 AP」环境
 
-+ 虚拟机镜像列表
+## 实验环境
 
-  
++ 可以开启监听模式、AP 模式和数据帧注入功能的 USB 无线网卡
++ Virtualbox
 
-+ 设置虚拟机和宿主机的文件共享，实现宿主机和虚拟机的双向文件共享
+## 实验要求
 
-  ![image-20210327103150339](images/image-20210327103150339.png)
-
-+ 虚拟机镜像备份和还原的方法
-
-  + 备份：
-
-  ![image-20210327102030035](images/image-20210327102030035.png)
-
-  + 还原：备份镜像右键：恢复备份。
-
-  <img src="images/image-20210327102130948.png" alt="image-20210327102130948" style="zoom: 50%;" />
-
-  
-
-+ 熟悉虚拟机基本网络配置，了解不同联网模式的典型应用场景
-
-  + `hostonly`为例：
-
-    <img src="images/image-20210327111309453.png" alt="image-20210327111309453" style="zoom: 80%;" />
++ 对照 [第一章 实验](https://c4pr1c3.github.io/cuc-mis/chap0x01/exp.html) `无线路由器/无线接入点（AP）配置` 列的功能清单，找到在 OpenWrt 中的配置界面并截图证明；
++ 记录环境搭建步骤；
++ 如果 USB 无线网卡能在 `OpenWrt` 中正常工作，则截图证明；
++ 如果 USB 无线网卡不能在 `OpenWrt` 中正常工作，截图并分析可能的故障原因并给出可能的解决方法。
 
 ## `OpenWrt` on VirtualBox
 
@@ -356,6 +341,38 @@ fi
   ![image-20210325094239229](images/Inkedimage-2021032509423922.jpg)
 
 
+
+## 复习VirtualBox的配置与使用
+
++ 虚拟机镜像列表：
+
+  <img src="images/image-20210327173439429.png" alt="image-20210327173439429" style="zoom:67%;" />
+
+  虚拟介质管理：
+
+  <img src="images/image-20210327173330240.png" alt="image-20210327173330240" style="zoom:50%;" />
+
++ 设置虚拟机和宿主机的文件共享，实现宿主机和虚拟机的双向文件共享
+
+  ![image-20210327103150339](images/image-20210327103150339.png)
+
++ 虚拟机镜像备份和还原的方法
+
+  + 备份：
+
+  ![image-20210327102030035](images/image-20210327102030035.png)
+
+  + 还原：备份镜像右键：恢复备份。
+
+  <img src="images/image-20210327102130948.png" alt="image-20210327102130948" style="zoom: 50%;" />
+
+  
+
++ 熟悉虚拟机基本网络配置，了解不同联网模式的典型应用场景
+
+  + `hostonly`为例：
+
+    <img src="images/image-20210327111309453.png" alt="image-20210327111309453" style="zoom: 80%;" />
 
 ## `OpenWrt`使用
 
