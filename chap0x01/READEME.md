@@ -278,7 +278,7 @@ fi
 
 + 安装完`LuCi`后浏览器访问的结果
 
-  ![image-20210325111045337](/images/image-20210325111045337.png)
+  ![image-20210325111045337](images/image-20210325111045337.png)
 
 + 检测网卡驱动
 
@@ -350,7 +350,7 @@ fi
 
   虚拟介质管理：
 
-  <img src="images/image-20210327173330240.png" alt="image-20210327173330240" style="zoom:50%;" />
+  <img src="images/image-20210327173330240.png" alt="image-20210327173330240" style="zoom: 50%;" />
 
 + 设置虚拟机和宿主机的文件共享，实现宿主机和虚拟机的双向文件共享
 
@@ -364,7 +364,7 @@ fi
 
   + 还原：备份镜像右键：恢复备份。
 
-  <img src="images/image-20210327102130948.png" alt="image-20210327102130948" style="zoom: 50%;" />
+  <img src="images/image-20210327102130948.png" alt="image-20210327102130948" style="zoom: 33%;" />
 
   
 
@@ -436,7 +436,7 @@ fi
 
 + 开启路由器/AP的日志记录功能（对指定事件记录）
 
-  <img src="images/image-20210327172321776.png" alt="image-20210327172321776" style="zoom:50%;" />
+  ![image-20210327181904817](images/image-20210327181904817.png)
 
 + 配置AP隔离(WLAN划分)功能
 
@@ -500,7 +500,7 @@ fi
 
   
 
-  <img src="images/image-20210327163409801.png" alt="image-20210327163409801" style="zoom:33%;" />
+  <img src="images/image-20210327163409801.png" alt="image-20210327163409801" style="zoom: 25%;" />
 
 + 如果手机无法分配到IP地址但又想联网该如何解决？
 
@@ -510,7 +510,7 @@ fi
 
 ![img](images/XAUKRHXYAI_Q2JAJAV]_RL.png)
 
-+ 导出文件为:[backup-OpenWrt-2021-03-26.tar.gz](./backup-OpenWrt-2021-03-26.tar.gz)
++ 导出文件为:[backup-OpenWrt-2021-03-26.tar.gz](./backup-OpenWrt-2021-03-26.tar.gz)，解压得到[etc文件夹](./etc)。
 
 ## 参考资料
 
