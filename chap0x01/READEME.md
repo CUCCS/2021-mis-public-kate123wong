@@ -2,116 +2,35 @@
 typora-root-url: ./
 ---
 
-## 无线路由器/无线接入点（AP）配置
-
-以下实验，默认配置的是AP，除非特别说明时会强调该实验内容需要无线路由器支持。
-
-+ 重置和恢复AP到出厂默认设置状态
-
-  
-
-+ 设置AP的管理员用户名和密码
-
-  
-
-+ 设置SSID广播和非广播模式
-
-  勾选详情配置中的`Hide ESSID`为非广播模式，不勾选为广播模式。
-
-  <img src="images/image-20210325095215453.png" alt="image-20210325095215453" style="zoom: 67%;" />
-
-+ 配置不同的加密方式
-
-  ![image-20210325112930051](images/image-20210325112930051.png)
-
-  例如：
-
-  + `WEP Shared Auth (WEP-40)`
-
-  <img src="images/image-20210325102743889.png" alt="image-20210325102743889" style="zoom:50%;" />
-
-  + WPA2 PSK (CCMP)
-
-    <img src="images/image-20210325112825596.png" alt="image-20210325112825596" style="zoom:67%;" />
-
-    <img src="images/image-20210325112737047.png" alt="image-20210325112737047" style="zoom:67%;" />
-
-  + ……
-
-+ 设置AP管理密码
-
-  ![image-20210325102218309](images/image-20210325102218309.png)
-
-+ 配置无线路由器使用自定义的DNS解析服务器
-
-  ![image-20210325162755710](images/image-20210325162755710.png)
-
-+ 配置DHCP和禁用DHCP
-
-  
-
-+ 开启路由器/AP的日志记录功能（对指定事件记录）
-
-  
-
-+ 配置AP隔离(WLAN划分)功能
-
-+ 设置MAC地址过滤规则（ACL地址过滤器）
-
-+ 查看WPS功能的支持情况
-
-+ 查看AP/无线路由器支持哪些工作模式
-
-## 使用手机连接不同配置状态下的AP对比实验
-
-+ 重置和恢复AP到出厂默认设置状态
-
-  
-
-+ 设置AP的管理员用户名和密码
-
-
-
-
-
-+ 设置SSID广播和非广播模式
-
-  非广播模式下手机看不到名为`OpenWrtKate`的热点。
-
-  ![image-20210325101545420](images/image-20210325101545420.png)
-
-  
-
-+ 配置不同的加密方式
-
-  无密码时，可直接连接，当配置了加密时，客户端需要输入密码才可以加入热点。手机端可以查看当前所用的加密方式。并给出不安全、低安全性等不同的安全提醒。
-
-  ![image-20210325114649908](images/image-20210325114649908.png)
-
-+ 配置无线路由器使用自定义的DNS解析服务器
-
-+ 配置DHCP和禁用DHCP
-
-+ 开启路由器/AP的日志记录功能（对指定事件记录）
-
-+ 配置AP隔离(WLAN划分)功能
-
-+ 设置MAC地址过滤规则（ACL地址过滤器）
-
-+ 如果手机无法分配到IP地址但又想联网该如何解决？
-
-## 使用路由器/AP的配置导出备份功能，尝试解码导出的配置文件
-
-![img](images/XAUKRHXYAI_Q2JAJAV]_RL.png)
-
-
++ ./backup-OpenWrt-2021-03-26.tar.gz)
 
 ## 复习VirtualBox的配置与使用
 
 + 虚拟机镜像列表
+
+  
+
 + 设置虚拟机和宿主机的文件共享，实现宿主机和虚拟机的双向文件共享
+
+  ![image-20210327103150339](images/image-20210327103150339.png)
+
 + 虚拟机镜像备份和还原的方法
+
+  + 备份：
+
+  ![image-20210327102030035](images/image-20210327102030035.png)
+
+  + 还原：备份镜像右键：恢复备份。
+
+  <img src="images/image-20210327102130948.png" alt="image-20210327102130948" style="zoom: 50%;" />
+
+  
+
 + 熟悉虚拟机基本网络配置，了解不同联网模式的典型应用场景
+
+  + `hostonly`为例：
+
+    <img src="images/image-20210327111309453.png" alt="image-20210327111309453" style="zoom: 80%;" />
 
 ## `OpenWrt` on VirtualBox
 
@@ -121,7 +40,7 @@ typora-root-url: ./
 + `wget.exe`下载并将其放到`git`的`bin`目录下。
 + 下载`dd`工具包。
 
-### 脚本执行
+### 脚本安装`OpenWrt`
 
 环境：windows10 + git bash
 
@@ -436,17 +355,145 @@ fi
 
   ![image-20210325094239229](images/Inkedimage-2021032509423922.jpg)
 
-+ 补充：
 
-  + 备份`OpenWrt`的配置、恢复备份、恢复默认配置。
 
-    ![image-20210326112838209](images/image-20210326112838209.png)
+## `OpenWrt`使用
 
-  + 重置路由配置：重置`	OpenWrt`的配置，包括其公私钥、ip配置、root的密码(清空)，都会重置。
+### 无线路由器/无线接入点（AP）配置
 
-    ![image-20210326105429690](images/image-20210326105429690.png)
+以下实验，默认配置的是AP，除非特别说明时会强调该实验内容需要无线路由器支持。
 
-  + 
++ 重置和恢复AP到出厂默认设置状态
+
+  重置`	OpenWrt`的配置，包括其公私钥、`ip`配置（`/etc/config/network`文件的内容）、root的密码(清空)，都会重置。
+
+  
+
+  ![image-20210326112838209](images/image-20210326112838209.png)
+
+  ![image-20210326105429690](images/image-20210326105429690.png)
+
++ 设置AP的管理员用户名和密码
+
+  只有修改密码的界面，如下：
+
+  <img src="images/image-20210325102218309.png" alt="image-20210325102218309" style="zoom:67%;" />
+
++ 设置SSID广播和非广播模式
+
+  勾选详情配置中的`Hide ESSID`为非广播模式，不勾选为广播模式。
+
+  <img src="images/image-20210325095215453.png" alt="image-20210325095215453" style="zoom: 67%;" />
+
++ 配置不同的加密方式
+
+  ![image-20210325112930051](images/image-20210325112930051.png)
+
+  例如：
+
+  + `WEP Shared Auth (WEP-40)`
+
+  <img src="images/image-20210325102743889.png" alt="image-20210325102743889" style="zoom:50%;" />
+
+  + WPA2 PSK (CCMP)
+
+    <img src="images/image-20210325112825596.png" alt="image-20210325112825596" style="zoom:67%;" />
+
+    <img src="images/image-20210325112737047.png" alt="image-20210325112737047" style="zoom:67%;" />
+
+  + ……
+
++ 设置AP管理密码
+
+  ![image-20210325102218309](images/image-20210325102218309.png)
+
++ 配置无线路由器使用自定义的DNS解析服务器
+
+  ![image-20210325162755710](images/image-20210325162755710.png)
+
++ 配置DHCP和禁用DHCP
+
+  ![image-20210327140505903](images/image-20210327140505903.png)
+
+  ![image-20210327140540771](images/image-20210327140540771.png)
+
++ 开启路由器/AP的日志记录功能（对指定事件记录）
+
+  <img src="images/image-20210327172321776.png" alt="image-20210327172321776" style="zoom:50%;" />
+
++ 配置AP隔离(WLAN划分)功能
+
+  ![image-20210327172141285](images/image-20210327172141285.png)
+
++ 设置MAC地址过滤规则（ACL地址过滤器）
+
+  将客户端不加入`MAC listed only`。
+
+  <img src="images/image-20210327162929998.png" alt="image-20210327162929998" style="zoom:67%;" />
+
++ 查看WPS功能的支持情况
+
+   `WPS` :  `wi-fi`保护设置。支持WPA-EAP、WPA-PSK、WPA-PSK/WPA-PSK Mixed Mode 、 WPA2-EAP、WPA2-PSK几种加密认证方式。
+
+  ![image-20210327165413983](images/image-20210327165413983.png)
+
++ 查看AP/无线路由器支持哪些工作模式
+
+  具有以下的工作模式：
+
+  <img src="images/image-20210327165146479.png" alt="image-20210327165146479" style="zoom:50%;" />
+
+### 使用手机连接不同配置状态下的AP对比实验
+
++ 设置SSID广播和非广播模式
+
+  非广播模式下手机看不到名为`OpenWrtKate`的热点。
+
+  ![image-20210325101545420](images/image-20210325101545420.png)
+
+  
+
++ 配置不同的加密方式
+
+  无密码时，可直接连接，当配置了加密时，客户端需要输入密码才可以加入热点。手机端可以查看当前所用的加密方式。并给出不安全、低安全性等不同的安全提醒。
+
+  ![image-20210325114649908](images/image-20210325114649908.png)
+
+  
+
++ 配置DHCP和禁用DHCP
+
+  对于`wan`网卡，手机端设置没有变化；对于`lan`网卡，手机端是否有`ip`取决于`OpenWrt`是否配置有DHCP。
+
+  AP工作在`wan`口(Nat网卡)：`OpenWrt`NAT网卡的`ip`本质为`VirtualBox`所分配。`OpenWrt`充当AP接受到客户端(手机端)`DHCP`的请求之后，将`802.11`协议的数据转换为以太网协议，然后请求数据包被发往`wan`口 ==> 也就是`20.0.3.15`，也就是NAT网卡地址。接下来，数据包发给`gateway`：`VirtualBox`(10.0.3.2)，他在收到该DHCP请求后，给客户端分配一个`ip`(10.0.3.16)。因此，无论`OpenWrt`是否配置了DHCP服务器，只要AP接收到的数据发送到`wan`口，客户端均正常分配到`ip`。
+
+  使AP工作在`lan`口(host-only网卡)，也就是将AP接受到的无线网络中数据包发送给`lan`口，也就是`192.168.152.101`(host-only网卡),此时，若是`OpenWrt`禁用DHCP，则客户端分配不到`ip`，但若是启用DHCP，则客户端可以分配到DHCP。
+
+  ![image-20210327155025941](images/image-20210327155025941.png)
+
+  只配置`lan`接口为AP工作网卡。并对其配置DHCP，客户端(其他电脑)连接后的`ip`分配情况。
+
+  ![image-20210327154603067](images/image-20210327154603067.png)
+
+  
+
++ 设置MAC地址过滤规则（ACL地址过滤器）
+
+  将客户端不加入`MAC listed only`，则客户端连接不到该热点。
+
+  
+
+  <img src="images/image-20210327163409801.png" alt="image-20210327163409801" style="zoom:33%;" />
+
++ 如果手机无法分配到IP地址但又想联网该如何解决？
+
+  手动指定`ip`、`dns`、`dhcp`、路由等？实验并没成功。
+
+### 使用路由器/AP的配置导出备份功能，尝试解码导出的配置文件
+
+![img](images/XAUKRHXYAI_Q2JAJAV]_RL.png)
+
++ 导出文件为:[backup-OpenWrt-2021-03-26.tar.gz](./backup-OpenWrt-2021-03-26.tar.gz)
 
 ## 参考资料
 
