@@ -2,17 +2,17 @@
 
 ## 实验目的
 
-+ 熟悉基于 OpenWrt 的无线接入点（AP）配置
++ 熟悉基于 `OpenWrt` 的无线接入点（AP）配置
 + 为第二章、第三章和第四章实验准备好「无线软 AP」环境
 
 ## 实验环境
 
 + 可以开启监听模式、AP 模式和数据帧注入功能的 USB 无线网卡
-+ Virtualbox
++ `Virtualbox`
 
 ## 实验要求
 
-+ 对照 [第一章 实验](https://c4pr1c3.github.io/cuc-mis/chap0x01/exp.html) `无线路由器/无线接入点（AP）配置` 列的功能清单，找到在 OpenWrt 中的配置界面并截图证明；
++ 对照 [第一章 实验](https://c4pr1c3.github.io/cuc-mis/chap0x01/exp.html) `无线路由器/无线接入点（AP）配置` 列的功能清单，找到在 `OpenWrt` 中的配置界面并截图证明；
 + 记录环境搭建步骤；
 + 如果 USB 无线网卡能在 `OpenWrt` 中正常工作，则截图证明；
 + 如果 USB 无线网卡不能在 `OpenWrt` 中正常工作，截图并分析可能的故障原因并给出可能的解决方法。
@@ -37,7 +37,7 @@ cd cuc-mis-ppt/exp/chap0x01
 bash setup-vm.sh
 ```
 
-####  脚本分析(做了少量修改，可在windows环境中一键安装openwrt)
+####  脚本分析(做了少量修改，可在windows环境中一键安装`OpenWrt`)
 
 ```bash
 #!/usr/bin/env bash
@@ -83,6 +83,7 @@ if [[ $? -ne 0 ]];then
     # 上述代码执行失败，则执行下述代码：将源img镜像拷贝一份，并给其一个新的名字。
     # ref: https://openwrt.org/docs/guide-user/virtualization/virtualbox-vm#convert_openwrtimg_to_vbox_drive
     dd if=openwrt-x86-64-combined-squashfs.img of=openwrt-x86-64-combined-squashfs-padded.img bs=128000 conv=sync
+    # kate：
     # dd ：用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换
     # if=文件名：输入文件名
     # of=文件名：输出文件名
@@ -168,31 +169,31 @@ fi
 
 + 在`https://downloads.openwrt.org/releases/19.07.5/targets/x86/64/`中下载`openwrt-19.07.5-x86-64-combined-squashfs.img.gz`。
 
-  ![image-20210323215045662](images/image-20210323215045662.png)
+  ![download_page](images/download_page.png)
 
 + 使用`gzip -d`在`git bash`中解压缩刚下载的文件。
 
-  ![image-20210323215407402](images/image-20210323215407402.png)
+  ![gzip](images/gzip.png)
 
 + 使用下述命令将`img`文件转换成`vdi`文件。
 
-  ![image-20210323220936084](images/image-20210323220936084.png)
+  ![imgToVdi](images/imgToVdi.png)
 
 + 磁盘扩容
 
-  ![image-20210324111902165](images/image-20210324111902165.png)
+  ![modifyDisk](images/modifyDisk.png)
 
-  ![image-20210324103534975](images/image-20210324103534975.png)
+  ![vmsvga](images/vmsvga.png)
 
 + 在`virtualBox`中新建虚拟机，并选择[使用已有虚拟硬盘]，并注册刚才生成的`vdi`。得到新的虚拟机`openwrt-demo`。
 
-  ​	![image-20210323213427585](images/image-20210323213427585.png)
+  ​	![creatOpenWrt](images/creatOpenWrt.png)
 
-  ​	<img src="images/image-20210323221321697.png" alt="image-20210323221321697" style="zoom: 80%;" />
+  
 
-+ 进行一些配置，如：设置多重加载、NAT+Host only双网卡、修改内存大小、显存大小、USB设备配置等。
++ 安装后，进行一些配置，如：设置多重加载、NAT+Host only双网卡、修改内存大小、显存大小、USB设备配置等。
 
-  ![image-20210324162156969](images/image-20210324162156969.png)
+  ![OpenWrt基本配置](images/OpenWrt基本配置.png)
 
 ### 无线网卡配置(补充)
 
@@ -200,21 +201,21 @@ fi
 
 + `usb`端口设置：
 
-  ![image-20210324082029471](images/image-20210324082029471.png)
+  ![USB设置](images/USB设置.png)
 
-注意：重装virtualbox 需要安装 extension pack，才能更改上面的USB控制器。
+注意：重装`virtualbox` 需要安装 `extension pack`，才能更改上面的USB控制器。
 
 + 可以采用下面的三条指令检测虚拟机是否可以正常的识别网卡。
 
-  ![image-20210324090521460](images/image-20210324090521460.png)
+  ![检测网卡正常识别](images/检测网卡正常识别.png)
 
 + 使用`sudo airodump-ng wlan0 -c 11 -w demo-20210324 --beacons` ： 抓包。
 
-  ![image-20210324090625388](images/image-20210324090625388.png)
+  ![抓包](images/抓包.png)
 
 + 使用`vscode`的`downlode`功能将上述抓取的数据包下载到本地。(也可以使用windows自带的`scp`命令),方便在主机上使用`wireshark`进行分析。
 
-  ![image-20210324100804642](images/image-20210324100804642.png)
+  ![下载所抓包](images/下载所抓包.png)
 
 ###  `OpenWrt`配置
 
@@ -278,11 +279,11 @@ fi
 
 + 安装完`LuCi`后浏览器访问的结果
 
-  ![image-20210325111045337](images/image-20210325111045337.png)
+  ![访问LuCi](images/访问LuCi.png)
 
 + 检测网卡驱动
 
-  ```
+  ```bash
   root@OpenWrt:~# lsusb
   Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
   Bus 001 Device 002: ID 0bda:8178 Realtek Semiconductor Corp. RTL8192CU 802.11n WLAN Adapter
@@ -297,7 +298,7 @@ fi
 
 + 安装驱动
 
-  ```
+  ```bash
   #快速查找可能包含指定芯片名称的驱动程序包
   root@OpenWrt:~# opkg find kmod-* | grep rtl8192cu
   kmod-rtl8192cu - 4.14.209+4.19.137-1-2 - Realtek RTL8192CU/RTL8188CU support
@@ -313,32 +314,32 @@ fi
 
   安装驱动前：
 
-  ​	![image-20210324212709869](images/image-20210324212709869.png)
+  ​	![安装驱动前](images/安装驱动前.png)
 
-  ​	安装驱动后：![image-20210324212721142](images/image-20210324212721142.png)
+  ​	安装驱动后：![安装驱动后](images/安装驱动后.png)
 
 + 安装`wpa-supplicant` 和 `hostapd`。
 
-  ```
+  ```bash
   #wpa-supplicant 和 hostapd 。其中 wpa-supplicant 提供 WPA 客户端认证，hostapd 提供 AP 或 ad-hoc 模式的 WPA 认证。
   opkg install hostapd wpa-supplicant
   ```
 
 + 重启系统，使得上述安装的配置生效。以便能够在`LuCi` 的网页版中管理无线网卡设置。能在网页版的`Network`下拉菜单中看见`Wireless`为上述操作成功的标识。
 
-  ![image-20210324213158133](images/image-20210324213158133.png)
+  ![Wireless配置生效](images/Wireless配置生效.png)
 
 + 进行下述的配置
 
-  <img src="images/image-20210325092932526.png" alt="image-20210325092932526" style="zoom:80%;" />
+  ![OpenWrt设置](images/OpenWrt设置.png)
 
 + `Enable`
 
-  ![image-20210325093855745](images/image-20210325093855745.png)
+  ![Enable](images/Enable.png)
 
 + 手机连接之后
 
-  ![image-20210325094239229](images/Inkedimage-2021032509423922.jpg)
+  ![连接AP后](images/连接AP后.jpg)
 
 
 
@@ -346,33 +347,27 @@ fi
 
 + 虚拟机镜像列表：
 
-  <img src="images/image-20210327173439429.png" alt="image-20210327173439429" style="zoom:67%;" />
-
-  虚拟介质管理：
-
-  <img src="images/image-20210327173330240.png" alt="image-20210327173330240" style="zoom: 50%;" />
+  ![VirtualBox镜像列表](images/VirtualBox镜像列表.png)
 
 + 设置虚拟机和宿主机的文件共享，实现宿主机和虚拟机的双向文件共享
 
-  ![image-20210327103150339](images/image-20210327103150339.png)
+  ![文件共享](images/文件共享.png)
 
 + 虚拟机镜像备份和还原的方法
 
   + 备份：
 
-  ![image-20210327102030035](images/image-20210327102030035.png)
+  ![镜像备份](images/镜像备份.png)
 
   + 还原：备份镜像右键：恢复备份。
 
-  <img src="images/image-20210327102130948.png" alt="image-20210327102130948" style="zoom: 33%;" />
-
-  
+    ![恢复备份](images/恢复备份.png)
 
 + 熟悉虚拟机基本网络配置，了解不同联网模式的典型应用场景
 
   + `hostonly`为例：
 
-    <img src="images/image-20210327111309453.png" alt="image-20210327111309453" style="zoom: 80%;" />
+    ![联网模式](images/联网模式.png)
 
 ## `OpenWrt`使用
 
@@ -386,79 +381,79 @@ fi
 
   
 
-  ![image-20210326112838209](images/image-20210326112838209.png)
+  ![恢复默认设置](images/恢复默认设置.png)
 
-  ![image-20210326105429690](images/image-20210326105429690.png)
+  ![恢复默认设置](images/恢复默认设置2.png)
 
 + 设置AP的管理员用户名和密码
 
   只有修改密码的界面，如下：
 
-  <img src="images/image-20210325102218309.png" alt="image-20210325102218309" style="zoom:67%;" />
+  ![changePasswd](images/changePasswd.png)
 
 + 设置SSID广播和非广播模式
 
   勾选详情配置中的`Hide ESSID`为非广播模式，不勾选为广播模式。
 
-  <img src="images/image-20210325095215453.png" alt="image-20210325095215453" style="zoom: 67%;" />
+  <img src="images/HideESSID.png" alt="image-20210325095215453" style="zoom: 67%;" />
 
 + 配置不同的加密方式
 
-  ![image-20210325112930051](images/image-20210325112930051.png)
+  ![配置不同的加密方式](images/配置不同的加密方式.png)
 
   例如：
 
   + `WEP Shared Auth (WEP-40)`
 
-  <img src="images/image-20210325102743889.png" alt="image-20210325102743889" style="zoom:50%;" />
+  <img src="images/WEP Shared Auth.png" alt="image-20210325102743889" style="zoom:50%;" />
 
   + WPA2 PSK (CCMP)
 
-    <img src="images/image-20210325112825596.png" alt="image-20210325112825596" style="zoom:67%;" />
+    <img src="images/WPA2 PSK.png" alt="image-20210325112825596" style="zoom:67%;" />
 
-    <img src="images/image-20210325112737047.png" alt="image-20210325112737047" style="zoom:67%;" />
+    <img src="images/配置加密后的Openwrt.png" alt="image-20210325112737047" style="zoom:67%;" />
 
   + ……
 
 + 设置AP管理密码
 
-  ![image-20210325102218309](images/image-20210325102218309.png)
+  ![changePasswd](images/changePasswd.png)
 
 + 配置无线路由器使用自定义的DNS解析服务器
 
-  ![image-20210325162755710](images/image-20210325162755710.png)
+  ![DNS解析服务器](images/DNS解析服务器.png)
 
 + 配置DHCP和禁用DHCP
 
-  ![image-20210327140505903](images/image-20210327140505903.png)
+  ![配置DHCP](images/配置DHCP.png)
 
-  ![image-20210327140540771](images/image-20210327140540771.png)
+  ![禁用DHCP](images/禁用DHCP.png)
 
 + 开启路由器/AP的日志记录功能（对指定事件记录）
 
-  ![image-20210327181904817](images/image-20210327181904817.png)
+  ![日志记录功能](images/日志记录功能.png)
 
 + 配置AP隔离(WLAN划分)功能
 
-  ![image-20210327172141285](images/image-20210327172141285.png)
+  ![WLAN划分](images/WLAN划分.png)
 
 + 设置MAC地址过滤规则（ACL地址过滤器）
 
   将客户端不加入`MAC listed only`。
 
-  <img src="images/image-20210327162929998.png" alt="image-20210327162929998" style="zoom:67%;" />
+  <img src="images/MAC地址过滤规则.png" alt="image-20210327162929998" style="zoom:67%;" />
 
 + 查看WPS功能的支持情况
 
    `WPS` :  `wi-fi`保护设置。支持WPA-EAP、WPA-PSK、WPA-PSK/WPA-PSK Mixed Mode 、 WPA2-EAP、WPA2-PSK几种加密认证方式。
 
-  ![image-20210327165413983](images/image-20210327165413983.png)
+  ![WPS功能](images/WPS功能.png)
 
 + 查看AP/无线路由器支持哪些工作模式
 
   具有以下的工作模式：
 
-  <img src="images/image-20210327165146479.png" alt="image-20210327165146479" style="zoom:50%;" />
+  <img src="images/工作模式.png" alt="image-20210327165146479" style="zoom:50%;" />
 
 ### 使用手机连接不同配置状态下的AP对比实验
 
@@ -466,7 +461,7 @@ fi
 
   非广播模式下手机看不到名为`OpenWrtKate`的热点。
 
-  ![image-20210325101545420](images/image-20210325101545420.png)
+  ![SSID广播和非广播模式](images/SSID广播和非广播模式.png)
 
   
 
@@ -474,7 +469,7 @@ fi
 
   无密码时，可直接连接，当配置了加密时，客户端需要输入密码才可以加入热点。手机端可以查看当前所用的加密方式。并给出不安全、低安全性等不同的安全提醒。
 
-  ![image-20210325114649908](images/image-20210325114649908.png)
+  ![配置不同的加密方式](images/配置不同的加密方式-手机端.png)
 
   
 
@@ -486,11 +481,11 @@ fi
 
   使AP工作在`lan`口(host-only网卡)，也就是将AP接受到的无线网络中数据包发送给`lan`口，也就是`192.168.152.101`(host-only网卡),此时，若是`OpenWrt`禁用DHCP，则客户端分配不到`ip`，但若是启用DHCP，则客户端可以分配到DHCP。
 
-  ![image-20210327155025941](images/image-20210327155025941.png)
+  ![配置DHCP和禁用DHCP](images/配置DHCP和禁用DHCP-手机端.png)
 
   只配置`lan`接口为AP工作网卡。并对其配置DHCP，客户端(其他电脑)连接后的`ip`分配情况。
 
-  ![image-20210327154603067](images/image-20210327154603067.png)
+  ![电脑获取ip](images/电脑获取ip.png)
 
   
 
@@ -500,7 +495,7 @@ fi
 
   
 
-  <img src="images/image-20210327163409801.png" alt="image-20210327163409801" style="zoom: 25%;" />
+  <img src="images/MAC地址过滤规则-手机端.png" alt="image-20210327163409801" style="zoom: 25%;" />
 
 + 如果手机无法分配到IP地址但又想联网该如何解决？
 
@@ -508,11 +503,19 @@ fi
 
 ### 使用路由器/AP的配置导出备份功能，尝试解码导出的配置文件
 
-![img](images/XAUKRHXYAI_Q2JAJAV]_RL.png)
+![AP的配置导出备份功能](images/AP的配置导出备份功能.png)
 
 + 导出文件为:[backup-OpenWrt-2021-03-26.tar.gz](./backup-OpenWrt-2021-03-26.tar.gz)，解压得到[etc文件夹](./etc)。
 
 ## 参考资料
 
 [黄大课本](https://c4pr1c3.github.io/cuc-mis/chap0x01/exp.html)
+
+## 遇到的问题
+
++ 运行一键安装`OpenWrt`时，遇到无`dd`工具、不支持`shasum`命令的`-q`参数等问题。采用安装工具包、删除不需要的参数等方法解决。
+
++ 理解性问题：对于【`OpenWrt`+无线网卡】来模拟物理器件【AP】，因此本实验所言的【AP管理界面】实为【`OpenWrt`管理界面】。
+
+  
 
