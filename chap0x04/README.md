@@ -11,7 +11,7 @@
 
 ## 安装`OpenWrt15.05.1`
 
-+ 使用[第一章的脚本](./setup-vm.sh)进行自动安装，需修改下载镜像的链接和变量VER值即可即可。
++ 使用[第一章的脚本](./code/setup-vm.sh)进行自动安装，需修改下载镜像的链接和变量VER值即可即可。
 
   ```bash
   #!/usr/bin/env bash
@@ -265,7 +265,7 @@ response = requests.post('http://192.168.152.106/cgi-bin/luci', headers=headers,
 
 ## 自动化攻击工具编写
 
-使用`python`代码模拟登录过程，获得`cookies`和`stok`，进行漏洞利用，代码实现如下：
+使用`python`代码模拟登录过程，获得`cookies`和`stok`，进行漏洞利用，[代码](./code/exp.py)实现如下：
 
 ```python
 import requests
