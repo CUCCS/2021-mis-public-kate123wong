@@ -61,13 +61,13 @@ am start -a android.intent.action.CALL -d tel:10086
 adb shell am start -a android.intent.action.SENDTO -d sms:10086 --es sms_body ye --ez exit_on_sent true
 ```
 
-
+![](README.assets/am实例.gif)
 
 ```bash
 adb shell pm uninstall com.example.MyApp
 ```
 
-
+![](README.assets/pmuninstall.gif)
 
 ```bash
 # 常用的按键对应的KEY_CODE
@@ -85,6 +85,8 @@ usage: input ...
        input tap <x> <y>
        input swipe <x1> <y1> <x2> <y2>
 ```
+
+![](README.assets/input.gif)
 
 ### Hello World v1
 
@@ -198,14 +200,14 @@ usage: input ...
 
 + [x]  如何修改代码使得应用程序图标在手机主屏幕上实现隐藏？
 
-  该方法使得程勋运行之后
+  该方法使得程序运行之后
   
   ```java
   修改<category android:name="android.intent.category.LAUNCHER" />为：
       <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>
   ```
   
-  
+  ![](README.assets/隐藏图标.gif)
 
 ### Hello World v2
 
@@ -346,23 +348,23 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
 #### Question
 
-+ DisplayMessageActivity.java中的2行打印日志语句是否有风险？如果有风险，请给出漏洞利用示范。如果没有风险，请给出理由。
+- [x] DisplayMessageActivity.java中的2行打印日志语句是否有风险？如果有风险，请给出漏洞利用示范。如果没有风险，请给出理由。
 
-  >有风险。即使黑客不知道服务器发给用户的注册码，但是如果他获得了服务器的LOG日志读的权限，就能够知道`secret_key`，然后就可以根据该验证码在用户不知情的情况下进行成功注册。
-  >
-  >![image-20210609080515089](README.assets/logcontent.png)
-  >
-  > ![](README.assets/log2.gif)
+>有风险。即使黑客不知道服务器发给用户的注册码，但是如果他获得了服务器的LOG日志读的权限，就能够知道`secret_key`，然后就可以根据该验证码在用户不知情的情况下进行成功注册。
+>
+>![image-20210609080515089](README.assets/logcontent.png)
+>
+> ![](README.assets/log2.gif)
 
-+ `SharedPreferences`类在进行读写操作时设置的`Context.MODE_PRIVATE`参数有何作用和意义？还有其他可选参数取值吗？
+- [x] `SharedPreferences`类在进行读写操作时设置的`Context.MODE_PRIVATE`参数有何作用和意义？还有其他可选参数取值吗？
 
-  >`Context.MODE_PRIVATE`:为默认操作模式，代表该文件是私有数据，只能被应用本身访问，在该模式下，写入的内容会覆盖原文件的内容，如果想把新写入的内容追加到原文件中。
-  >
-  >`Context.MODE_APPEND`：模式会检查文件是否存在，存在就往文件追加内容，否则就创建新文件。
-  >
-  >`MODE_WORLD_READABLE`：表示当前文件可以被其他应用读取；
-  >
-  >`MODE_WORLD_WRITEABLE`：表示当前文件可以被其他应用写入。
+>`Context.MODE_PRIVATE`:为默认操作模式，代表该文件是私有数据，只能被应用本身访问，在该模式下，写入的内容会覆盖原文件的内容，如果想把新写入的内容追加到原文件中。
+>
+>`Context.MODE_APPEND`：模式会检查文件是否存在，存在就往文件追加内容，否则就创建新文件。
+>
+>`MODE_WORLD_READABLE`：表示当前文件可以被其他应用读取；
+>
+>`MODE_WORLD_WRITEABLE`：表示当前文件可以被其他应用写入。
 
 ## 实验问题
 
