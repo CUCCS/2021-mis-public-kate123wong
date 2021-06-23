@@ -1,22 +1,32 @@
-## 软件逆向系列实验
+## 实验目的
 
-### smali代码分析
++ 初步了解使用`apktool`等工具进行Android逆向攻击
+
+## 实现环境
+
++ `Android Studio`
++ `adb`
++ `apktool`
+
+## 实验过程：软件逆向系列实验
+
+### `smali`代码分析
 
 1. 使用的是在第六章实验中创建的MisDmo2项目，使用Android Studio打开项目。（检出[Deliberately Vulnerable Android Hello World](https://github.com/c4pr1c3/DVAHW)最新版代码，在Android Studio中导入该项目）
 
-   <img src="README.assets/image-20210620204308986.png" alt="image-20210620204308986" style="zoom:80%;" />
+   <img src="README.assets/打开项目.png" alt="image-20210620204308986" style="zoom:80%;" />
 
 2. `Build` -> `Generate Signed APK...`，生成发布版apk，文件位于项目根目录下相对路径：`app/release/app-release.apk`；
 
-   ​	![image-20210620204427210](README.assets/image-20210620204427210.png)
+   ​	![image-20210620204427210](README.assets/生成apk.png)
 
-   ​	![image-20210620210835667](README.assets/image-20210620210835667.png)
+   ​	![image-20210620210835667](README.assets/添加key.png)
 
-   ​	![image-20210620211005903](README.assets/image-20210620211005903.png)
+   ​	![image-20210620211005903](README.assets/选择发布版本.png)
 
-    	生成的apk文件：
+   生成的`apk`文件：
 
-   ​	![image-20210620211502810](README.assets/image-20210620211502810.png)
+   ​	![image-20210620211502810](README.assets/生成apk文件.png)
 
 3. 配置`apktool`的环境
 
@@ -65,7 +75,7 @@
    ```
    ![find_displayPage](README.assets/find_displayPage.gif)用文本编辑器（本书使用[atom](https://atom.io/))打开上述`DisplayMessageActivity.smali`，定位到包含该资源唯一标识符所在的代码行。同时，在Android Studio中打开`DisplayMessageActivity.java`源代码，定位到包含`textView.setText(getString(R.string.register_ok));`的代码行。
 
-   ![open_displayPage](README.assets/open_displayPage.gif)
+   ​	![open_displayPage](README.assets/open_displayPage.gif)
 
    
 
@@ -101,15 +111,13 @@ move-result-object v5
 invoke-virtual {v4, v5}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 ```
 
-
-
 9. 搞懂了上述smali代码的含义之后，我们破解这个 **简单注册小程序** 的思路可以归纳如下：
 
    + 改变原来的注册码相等条件判断语句，对布尔类型返回结果直接取反，达到：只要我们没有输入正确的验证码，就能通过验证的“破解”效果；
 
      + 将 `if-eqz` 修改为 `if-nez`
 
-       ![image-20210622114838703](README.assets/nez)
+       ![image-20210622114838703](README.assets/nez.png)
 
    + 在执行注册码相等条件判断语句之前，打印出用于和用户输入的注册码进行比较的“正确验证码”变量的值，借助`adb logcat`直接“偷窥”到正确的验证码；
 
@@ -129,9 +137,7 @@ invoke-virtual {v4, v5}, Landroid/widget/TextView;->setText(Ljava/lang/CharSeque
        
        ```
 
-
-
-​						![image-20210622114635945](README.assets/添加LOG)
+​						![image-20210622114635945](README.assets/添加LOG.png)
 
 上述2种思路都需要直接修改smali代码，然后对反汇编目录进行**重打包**和**重签名**。
 
@@ -141,7 +147,7 @@ invoke-virtual {v4, v5}, Landroid/widget/TextView;->setText(Ljava/lang/CharSeque
 apktool b app-release
 ```
 
-![重打包](README.assets/打包)
+![重打包](README.assets/打包.png)
 
 ### 重签名
 
@@ -150,7 +156,7 @@ cd app-release/dist/
 <Android SDK Path>/build-tools/<valid version code>/apksigner sign --min-sdk-version 19 --ks <path to release.keystore.jks> --out app-release-signed.apk app-release.apk
 ```
 
-![image-20210622115714200](README.assets/签名)
+![image-20210622115714200](README.assets/签名.png)
 
 安装：
 
@@ -174,11 +180,7 @@ cd app-release/dist/
 
 + [x] 对Hello World v2版程序生成的APK文件进行程序图标替换，并进行重打包，要求可以安装到一台未安装过Hello World v2版程序的Android模拟器中。
 
-  + 修改图标文件：
-
-    
-
-  + 重打包、重签名、下载安装：
+  + 修改图标文件后重打包、重签名、下载安装：
     ![image-20210623092404588](README.assets/下载.png)
 
   + 结果：
@@ -197,7 +199,6 @@ cd app-release/dist/
 
   见`smali代码分析`第9点。
 
-  
 
 ## 试验问题
 
