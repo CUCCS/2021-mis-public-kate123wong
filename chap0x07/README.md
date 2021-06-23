@@ -14,7 +14,7 @@
 
    ​	![image-20210620211005903](README.assets/image-20210620211005903.png)
 
-   ​	生成的apk文件：
+    	生成的apk文件：
 
    ​	![image-20210620211502810](README.assets/image-20210620211502810.png)
 
@@ -45,7 +45,7 @@
 
    ![注册失败](README.assets/注册失败.gif)
 
-6.  用文本编辑器打开 `res/values/strings.xml` 查看会在上述代码行下一行发现：
+6. 用文本编辑器打开 `res/values/strings.xml` 查看会在上述代码行下一行发现：
 
    ```xml
    <string name="register_ok">注册成功</string>
@@ -56,24 +56,24 @@
    ```smali
    ./smali/cn/edu/cuc/misdemo/R$string.smali:.field public static final register_ok:I = 0x7f060027
    ```
-
    ![找到register_ok](README.assets/找到register_ok.gif)
 
-   现在，我们有了`register_ok`的资源唯一标识符：`0x7f060027`，使用该唯一标识符进行关键字查找，我们可以定位到这一段代码：
+7. 现在，我们有了`register_ok`的资源唯一标识符：`0x7f060027`，使用该唯一标识符进行关键字查找，我们可以定位到这一段代码：
 
    ```
    ./smali/cn/edu/cuc/misdemo/DisplayMessageActivity.smali:    const v5, 0x7f060027
    ```
-
    ![find_displayPage](README.assets/find_displayPage.gif)用文本编辑器（本书使用[atom](https://atom.io/))打开上述`DisplayMessageActivity.smali`，定位到包含该资源唯一标识符所在的代码行。同时，在Android Studio中打开`DisplayMessageActivity.java`源代码，定位到包含`textView.setText(getString(R.string.register_ok));`的代码行。
 
    ![open_displayPage](README.assets/open_displayPage.gif)
 
-![对比](README.assets/对比.gif)
+   
 
-根据源代码行号和smali代码中的`.line 39`，我们可以找到Android源代码中的Java代码和Smali代码之间的对应“翻译”关系。上述smali代码注释说明如下：
+8. 根据源代码行号和smali代码中的`.line 39`，我们可以找到Android源代码中的Java代码和Smali代码之间的对应“翻译”关系。上述smali代码注释说明如下：
 
-```smali
+   ![对比](README.assets/对比.gif)
+
+```
 # 当前smali代码对应源代码的行号
 .line 39
 
@@ -101,41 +101,37 @@ move-result-object v5
 invoke-virtual {v4, v5}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 ```
 
-搞懂了上述smali代码的含义之后，我们破解这个 **简单注册小程序** 的思路可以归纳如下：
 
-+ 改变原来的注册码相等条件判断语句，对布尔类型返回结果直接取反，达到：只要我们没有输入正确的验证码，就能通过验证的“破解”效果；
 
-  + 将 `if-eqz` 修改为 `if-nez`
+9. 搞懂了上述smali代码的含义之后，我们破解这个 **简单注册小程序** 的思路可以归纳如下：
 
-    ![image-20210622114838703](README.assets/nez)
+   + 改变原来的注册码相等条件判断语句，对布尔类型返回结果直接取反，达到：只要我们没有输入正确的验证码，就能通过验证的“破解”效果；
 
-+ 在执行注册码相等条件判断语句之前，打印出用于和用户输入的注册码进行比较的“正确验证码”变量的值，借助
+     + 将 `if-eqz` 修改为 `if-nez`
 
-  ```
-  adb logcat
-  ```
+       ![image-20210622114838703](README.assets/nez)
 
-  直接“偷窥”到正确的验证码；
+   + 在执行注册码相等条件判断语句之前，打印出用于和用户输入的注册码进行比较的“正确验证码”变量的值，借助`adb logcat`直接“偷窥”到正确的验证码；
 
-  + 增加2行打印语句:
+     + 增加2行打印语句:
 
-    ```smali
-    //        Log.d("user input", message); // 打印message和secrt_key
-    //        Log.d("debug secret_key", secret_key);
-    
-        .line 50
-        invoke-static {v2, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-    
-        const-string v2, "debug secret_key"
-    
-        .line 51
-        invoke-static {v2, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-    
-    ```
+       ```
+       //        Log.d("user input", message); // 打印message和secrt_key
+       //        Log.d("debug secret_key", secret_key);
+       
+           .line 50
+           invoke-static {v2, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+       
+           const-string v2, "debug secret_key"
+       
+           .line 51
+           invoke-static {v2, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+       
+       ```
 
-    
 
-![image-20210622114635945](README.assets/添加LOG)
+
+​						![image-20210622114635945](README.assets/添加LOG)
 
 上述2种思路都需要直接修改smali代码，然后对反汇编目录进行**重打包**和**重签名**。
 
@@ -174,8 +170,16 @@ cd app-release/dist/
 
 - [x] 使用apktool反汇编上一章实验中我们开发的Hello World v2版程序，对比Java源代码和smali汇编代码之间的一一对应关系。
 
+  见上述`smali代码分析`第九步。
+
 + [x] 对Hello World v2版程序生成的APK文件进行程序图标替换，并进行重打包，要求可以安装到一台未安装过Hello World v2版程序的Android模拟器中。
+
+  ![image-20210622125939528](README.assets/图标)
+
+  
+
 + [x] 尝试安装重打包版Hello World v2到一台已经安装过原版Hello World v2程序的模拟器中，观察出错信息并解释原因。
+
 + [x] 去掉Hello World v2版程序中DisplayMessageActivity.java代码中的那2行日志打印语句后编译出一个新的apk文件，假设文件名是：misdemo-v3.apk，尝试使用课件中介绍的几种软件逆向分析方法来破解我们的认证算法。
 
 ## 试验问题
@@ -187,3 +191,4 @@ cd app-release/dist/
 + [黄大课件](https://c4pr1c3.github.io/cuc-mis/chap0x07/exp.html)
 
   
+
