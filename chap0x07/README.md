@@ -174,13 +174,30 @@ cd app-release/dist/
 
 + [x] 对Hello World v2版程序生成的APK文件进行程序图标替换，并进行重打包，要求可以安装到一台未安装过Hello World v2版程序的Android模拟器中。
 
-  ![image-20210622125939528](README.assets/图标)
+  + 修改图标文件：
+
+    
+
+  + 重打包、重签名、下载安装：
+    ![image-20210623092404588](README.assets/下载.png)
+
+  + 结果：
+
+    ![image-20210623092043066](README.assets/更改图标.png)
 
   
 
 + [x] 尝试安装重打包版Hello World v2到一台已经安装过原版Hello World v2程序的模拟器中，观察出错信息并解释原因。
 
+  ​	![image-20210623092815770](README.assets/签名不一样.png)
+
+  原因：当前的版本与之前安装的版本的签名不一致。
+
 + [x] 去掉Hello World v2版程序中DisplayMessageActivity.java代码中的那2行日志打印语句后编译出一个新的apk文件，假设文件名是：misdemo-v3.apk，尝试使用课件中介绍的几种软件逆向分析方法来破解我们的认证算法。
+
+  见`smali代码分析`第9点。
+
+  
 
 ## 试验问题
 
