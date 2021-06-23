@@ -160,7 +160,7 @@ cd app-release/dist/
 
 安装：
 
-![image-20210622121949704](README.assets/install_apk)
+![image-20210622121949704](README.assets/install_apk.png)
 
 ### 破解效果展示
 
@@ -170,7 +170,7 @@ cd app-release/dist/
 
 通过**插桩**打印语句方式实现的直接“偷窥”正确注册码方法修改后的APK运行和使用效果如下动图所示：
 
-![log打印](C:/Users/18810/Videos/log打印.gif)
+![log打印](README.assets/log打印.gif)
 
 ## 实验问题解答
 
