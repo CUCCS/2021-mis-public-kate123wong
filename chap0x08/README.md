@@ -113,12 +113,14 @@ python app.py
 
    ![image-20210624210409428](README.assets/dex解压.png)
 
-3. 使用`jadx GUI`打开生成的jar文件
+3. 使用`jadx GUI`打开生成的jar文件,在`DoLgin`中我们发现，用户`devadmin`进入的是一个不同与其他用户的界面。实验发现可以使用这个用户账号可以用任意一个密码登陆到`app`中。
 
    ```bash
     ./jadx-gui  ../../../../dex2jar/classes-dex2jar.jar
    ```
 
+   ![jadx-gui-openfile](README.assets/jadx-gui-openfile.png)
+   
    <img src="README.assets/devadmin_login.gif" style="zoom:50%;" />
 
 ### Insecure Logging
@@ -152,26 +154,44 @@ python app.py
 #### 环境配置
 
 1. 安装`Android Studio`
+
 2. 安装`apktool`
+
+   ![image-20210626112135650](README.assets/apktool-sownload.png)
+
 3. 安装`sign`文件
+
+   ![image-20210626111147244](README.assets/download-sign.png)
+
+   ![image-20210626111053354](README.assets/sign-build.png)
+
+   ![image-20210626111233745](README.assets/build-success-sign)
 
 #### 实验过程
 
 1. 解压`InsecureBankv2.apk`：
 
-   ![image-20210625122045534](README.assets/解压apk-1624594857224.png)
+   `./apktool d InsecureBankv2.apk`
+
+   ![image-20210626112301127](README.assets/apktool-d)
 
 2. 打开`InsecureBankv2/res/values/strings.xml `,将`is_admin`的值改成`yes`；
 
-   ![重编译](README.assets/重编译.gif)
+   ![image-20210626112539102](README.assets/image-20210626112539102-1624677943119.png)
 
 3. 重新编译`InsecureBankv2`文件
 
-   ![image-20210625122845088](README.assets/重编译.png)
+   ![image-20210626112656813](README.assets/image-20210626112656813.png)
 
 4. 使用`SignApk`对新生成`apk`文件进行签名:`java -jar sign.jar InsecureBankv2.apk`
 
+   `java -jar ./sign*.jar ./InsecureBankv2.apk `
+
+   ![image-20210626114135288](README.assets/image-20210626114135288.png)
+
 5. 使用`apk` 安装签名完的`apk`包：`adb install InsecureBankv2.s.apk`
+
+   
 
 6. 查看模拟器，发现有一个新的按钮`Create User`，可以用这个按钮创建一个新的用户
 
@@ -205,3 +225,20 @@ python app.py
 
     ![2021-06-26 10-25-56 的屏幕截图](README.assets/2021-06-26 10-25-56 的屏幕截图.png)
 
++ `sign`测试出错
+
+  ![image-20210626113543182](README.assets/image-20210626113543182.png)
+
+  + 原因：`jarsigner`未找到
+
+  + 解决方法：安装`openjdk-11-jdk-headless`
+
+    ![image-20210626113624766](README.assets/image-20210626113624766.png)
+
+    ​		![image-20210626114228703](README.assets/image-20210626114228703.png)
+
++ `sign`时签名命令`java -jar sign.jar InsecureBankv2.apk`执行报错，找不到`sign.jar`文件。
+
+  + 解决方法：观察`test.sh`文件，发现使用`jarsigner`和`java jar ./target/sign*.jar`来对目标文件进行签名。所以手动使用这两条命令对目标文件进行签名。
+
+    ![image-20210626114408981](README.assets/image-20210626114408981.png)
