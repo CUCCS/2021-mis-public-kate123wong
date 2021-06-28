@@ -1,4 +1,4 @@
-# Android 缺陷应用漏洞攻击实验
+# 重新编译Android 缺陷应用漏洞攻击实验
 
 ## 实验目的
 
@@ -179,7 +179,7 @@ python app.py
 
 3. 重新编译`InsecureBankv2`文件
 
-   ![image-20210626112656813](README.assets/image-20210626112656813.png)
+   ![image-20210626112656813](C:/Users/18810/Videos/qpktool_b.png)
 
 4. 使用`SignApk`对新生成`apk`文件进行签名:`java -jar sign.jar InsecureBankv2.apk`
 
@@ -217,7 +217,7 @@ python app.py
 
 3. `AndroidManifest.xml` 文件中的`Broadcast receiver `定义如下：
 
-   ![image-20210628100703831](C:/Users/18810/Videos/manifest.xml_broadcast.png)
+   ![image-20210628100703831](README.assets/manifest.xml_broadcast-1624855675152.png)
 
 4. 使用`unzip`解压`apk`文件，得到`classes.dex`,再使用`dex2jar`解压`classes.dex`文件，得到`classes-dex2jar.jar `。用`jadx-gui`打开该文件。
 
@@ -249,7 +249,7 @@ python app.py
 
 2. 打开`unzip`得到的`AndroidManifest.xml `:可知`com.android.insecurebankv2.TrackUserContentProvider"`包名。
 
-   ![image-20210628115521900](README.assets/image-20210628115521900.png)
+   ![image-20210628115521900](README.assets/trackUser.png)
 
 3. 查看使用`jadx-gui`打开的反编译文件中给上述页面传递的参数：
 
