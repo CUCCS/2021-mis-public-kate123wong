@@ -219,8 +219,6 @@ python app.py
 
   + 原因：`java`安装有问题。
 
-    
-
   + 解决方法 ：卸载重装`javajdk`即可。
 
     ![2021-06-26 10-25-56 的屏幕截图](README.assets/2021-06-26 10-25-56 的屏幕截图.png)
@@ -242,3 +240,10 @@ python app.py
   + 解决方法：观察`test.sh`文件，发现使用`jarsigner`和`java jar ./target/sign*.jar`来对目标文件进行签名。所以手动使用这两条命令对目标文件进行签名。
 
     ![image-20210626114408981](README.assets/image-20210626114408981.png)
+    
+    ![image-20210626114135288](README.assets/image-20210626114135288.png)
+
+## 参考文献
+
++ [Android-InsecureBankv2](https://github.com/c4pr1c3/Android-InsecureBankv2/tree/master/Walkthroughs)
+
