@@ -81,7 +81,7 @@ python app.py
 
 1. 下载`https://github.com/dineshshetty/Android-InsecureBankv2`：
 
-   ![image-20210624195924829](C:/Users/18810/Videos/download_仓库.png)
+   ![image-20210624195924829](README.assets/download_仓库.png)
 
 2. 下载安装[`jadx`](https://github.com/skylot/jadx)：
 
@@ -175,7 +175,7 @@ python app.py
 
 2. 打开`InsecureBankv2/res/values/strings.xml `,将`is_admin`的值改成`yes`；
 
-   ![image-20210626112539102](C:/Users/18810/Videos/is_admin_to_yes.png)
+   ![image-20210626112539102](README.assets/is_admin_to_yes-1624855456614.png)
 
 3. 重新编译`InsecureBankv2`文件
 
@@ -185,15 +185,15 @@ python app.py
 
    `java -jar ./sign*.jar ./InsecureBankv2.apk `
 
-   ![image-20210626114135288](C:/Users/18810/Videos/sign_apkfile.png)
+   ![image-20210626114135288](README.assets/sign_apkfile.png)
 
 5. 使用`apk` 安装签名完的`apk`包：`adb install InsecureBankv2.s.apk`
 
-   ![image-20210626163137564](C:/Users/18810/Videos/apktool_b_apkfile.png)
+   ![image-20210626163137564](README.assets/apktool_b_apkfile.png)
 
 6. 查看模拟器，发现有一个新的按钮`Create User`，可以用这个按钮创建一个新的用户
 
-   ![image-20210626163514584](C:/Users/18810/Videos/have_ceate_button.png)
+   ![image-20210626163514584](README.assets/have_ceate_button.png)
 
 ### Exploiting Android Broadcast Receivers
 
@@ -201,9 +201,9 @@ python app.py
 
 1. `jadx`、`dex2jar`、`APKtool`
 
-   ![image-20210626163700093](C:/Users/18810/Videos/have_tools.png)
+   ![image-20210626163700093](README.assets/have_tools.png)
 
-   ![image-20210626163902530](C:/Users/18810/Videos/has_apktool.png)
+   ![image-20210626163902530](README.assets/has_apktool.png)
 
 #### 实验过程
 
@@ -211,7 +211,7 @@ python app.py
 
 2. 解压`InsecureBankv2.apk`:`apktool d InsecureBankv2.apk`;
 
-   ![image-20210626164156954](C:/Users/18810/Videos/apktool_d.png)
+   ![image-20210626164156954](README.assets/apktool_d.png)
 
    
 
@@ -221,21 +221,21 @@ python app.py
 
 4. 使用`unzip`解压`apk`文件，得到`classes.dex`,再使用`dex2jar`解压`classes.dex`文件，得到`classes-dex2jar.jar `。用`jadx-gui`打开该文件。
 
-   ![image-20210626164918439](C:/Users/18810/Videos/copy_classes-dex2jarfile.png)
+   ![image-20210626164918439](README.assets/copy_classes-dex2jarfile.png)
 
-   ![image-20210626165021731](C:/Users/18810/Videos/command_jadx-gui.png)
+   ![image-20210626165021731](README.assets/command_jadx-gui.png)
 
 5. 下图是打开的`jadx`中传递到`Broadcast Receiver`中的参数：
 
-   ![image-20210628101201805](C:/Users/18810/Videos/open_jadx-gui1.png)
+   ![image-20210628101201805](README.assets/open_jadx-gui1-1624855440484.png)
 
-   ![image-20210628101253953](C:/Users/18810/Videos/open_jadx-gui2.png)
+   ![image-20210628101253953](README.assets/open_jadx-gui2-1624855410872.png)
 
 
 
 6. 使用`adb sehll`进入`shell`目录；使用`am broadcast -a theBroadcast -n com.android.insecurebankv2/com.android.insecurebankv2.MyBroadCastReceiver  --es phonenumber 5554 –es newpass   `命令。如下图可见，执行这条命令时，向5554发送了一条信息。（对应上文中`sendTextMessage`函数）
 
-![image-20210628114524675](C:/Users/18810/Videos/adb_shell_sendTextMessage.png)
+![image-20210628114524675](README.assets/adb_shell_sendTextMessage-1624855414239.png)
 
 ### Exploiting Android Content Provider
 
@@ -253,11 +253,11 @@ python app.py
 
 3. 查看使用`jadx-gui`打开的反编译文件中给上述页面传递的参数：
 
-   ![image-20210628115808555](C:/Users/18810/Videos/open_jadx-gui3.png)
+   ![image-20210628115808555](README.assets/open_jadx-gui3-1624855416887.png)
 
 4. 执行命令：`content query --uri content://com.android.insecurebankv2.TrackUserContentProvider/trackerusers`，得到：
 
-   ![image-20210628120014541](C:/Users/18810/Videos/query_res.png)		
+   ![image-20210628120014541](README.assets/query_res-1624855419263.png)		
 
 ## 实验问题
 
@@ -267,27 +267,27 @@ python app.py
 
   + 解决方法 ：卸载重装`javajdk`即可。
 
-    ![2021-06-26 10-25-56 的屏幕截图](C:/Users/18810/Videos/install_java.png)
+    ![2021-06-26 10-25-56 的屏幕截图](README.assets/install_java-1624855421305.png)
 
 + `sign`测试出错
 
-  ![image-20210626113543182](C:/Users/18810/Videos/tetFile_error.png)
+  ![image-20210626113543182](README.assets/tetFile_error-1624855423371.png)
 
   + 原因：`jarsigner`未找到
 
   + 解决方法：安装`openjdk-11-jdk-headless`
 
-    ![image-20210626113624766](C:/Users/18810/Videos/install_openjdk_headless.png)
+    ![image-20210626113624766](README.assets/install_openjdk_headless-1624855426030.png)
 
-    ​		![image-20210626114228703](C:/Users/18810/Videos/tetFile_ok.png)
+    ​		![image-20210626114228703](README.assets/tetFile_ok-1624855428558.png)
 
 + `sign`时签名命令`java -jar sign.jar InsecureBankv2.apk`执行报错，找不到`sign.jar`文件。
 
   + 解决方法：观察`test.sh`文件，发现使用`jarsigner`和`java jar ./target/sign*.jar`来对目标文件进行签名。所以手动使用这两条命令对目标文件进行签名。
 
-    ![image-20210626114408981](C:/Users/18810/Videos/tetFile_cat.png)
+    ![image-20210626114408981](README.assets/tetFile_cat-1624855430346.png)
     
-    ![image-20210626114135288](C:/Users/18810/Videos/sign_ok.png)
+    ![image-20210626114135288](README.assets/sign_ok-1624855432232.png)
 
 ## 参考文献
 
