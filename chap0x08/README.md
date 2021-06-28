@@ -73,7 +73,7 @@ python app.py
 
 
 
-+ 使用：`adb shell  am start -n com.androidd.insecurebankv2/.PostLogin`，是因为`exported:true`的原因。将`exported="false"`则可以修复这个漏洞。
+  使用：`adb shell  am start -n com.androidd.insecurebankv2/.PostLogin`，是因为`exported:true`的原因。将`exported="false"`则可以修复这个漏洞。
 
 ## 实验过程
 
@@ -191,35 +191,81 @@ python app.py
 
 5. 使用`apk` 安装签名完的`apk`包：`adb install InsecureBankv2.s.apk`
 
-   
+   ![image-20210626163137564](README.assets/image-20210626163137564.png)
 
 6. 查看模拟器，发现有一个新的按钮`Create User`，可以用这个按钮创建一个新的用户
 
-   
+   ![image-20210626163514584](README.assets/image-20210626163514584.png)
 
 ### Exploiting Android Broadcast Receivers
 
 #### 环境配置
 
+1. `jadx`、`dex2jar`、`APKtool`
 
+   ![image-20210626163700093](README.assets/image-20210626163700093.png)
+
+   ![image-20210626163902530](README.assets/image-20210626163902530.png)
 
 #### 实验过程
 
+1. 模拟器安装`InsecureBankv2.apk`:`adb install InsecureBankv2.apk`；运行模拟器；使用`dinesh`登陆。
 
+2. 解压`InsecureBankv2.apk`:`apktool d InsecureBankv2.apk`;
+
+   ![image-20210626164156954](README.assets/image-20210626164156954.png)
+
+   
+
+3. `AndroidManifest.xml` 文件中的`Broadcast receiver `定义如下：
+
+   ![image-20210628100703831](README.assets/image-20210628100703831.png)
+
+4. 使用`unzip`解压`apk`文件，得到`classes.dex`,再使用`dex2jar`解压`classes.dex`文件，得到`classes-dex2jar.jar `。用`jadx-gui`打开该文件。
+
+   ![image-20210626164918439](README.assets/image-20210626164918439.png)
+
+   ![image-20210626165021731](README.assets/image-20210626165021731.png)
+
+5. 下图是打开的`jadx`中传递到`Broadcast Receiver`中的参数：
+
+   ![image-20210628101201805](README.assets/image-20210628101201805.png)
+
+   ![image-20210628101253953](README.assets/image-20210628101253953.png)
+
+
+
+6. 使用`adb sehll`进入`shell`目录；使用`am broadcast -a theBroadcast -n com.android.insecurebankv2/com.android.insecurebankv2.MyBroadCastReceiver  --es phonenumber 5554 –es newpass   `命令。如下图可见，执行这条命令时，向5554发送了一条信息。（对应上文中`sendTextMessage`函数）
+
+![image-20210628114524675](README.assets/image-20210628114524675.png)
 
 ### Exploiting Android Content Provider
 
 #### 环境配置
 
++ 与上述实验雷同，此处略。
+
 #### 实验过程
+
+1. 同上述几个实验部分：`adb  install` apk文件、使用`dinesh\Dinesh@123$`登陆、`apktool d  InsecureBankv2.apk`反编译、`unzip InsecureBankv2.apk`解压apk文件、`sh d2j-dex2jar.sh classes.dex`使用将`dex2jar`转换成`classes-dex2jar.jar`、使用`jadx-gui`打开转换生成的`jar`文件。（图略，参见上述几个实验）
+
+2. 打开`unzip`得到的`AndroidManifest.xml `:可知`com.android.insecurebankv2.TrackUserContentProvider"`包名。
+
+   ![image-20210628115521900](README.assets/image-20210628115521900.png)
+
+3. 查看使用`jadx-gui`打开的反编译文件中给上述页面传递的参数：
+
+   ![image-20210628115808555](README.assets/image-20210628115808555.png)
+
+4. 执行命令：`content query --uri content://com.android.insecurebankv2.TrackUserContentProvider/trackerusers`，得到：
+
+   ![image-20210628120014541](README.assets/image-20210628120014541.png)		
 
 ## 实验问题
 
 + `jadx`运行出错：
 
   + 原因：`java`安装有问题。
-
-    
 
   + 解决方法 ：卸载重装`javajdk`即可。
 
