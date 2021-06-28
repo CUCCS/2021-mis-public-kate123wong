@@ -179,7 +179,7 @@ python app.py
 
 3. 重新编译`InsecureBankv2`文件
 
-   ![image-20210626112656813](C:/Users/18810/Videos/qpktool_b.png)
+   ![image-20210626112656813](README.assets/qpktool_b.png)
 
 4. 使用`SignApk`对新生成`apk`文件进行签名:`java -jar sign.jar InsecureBankv2.apk`
 
